@@ -26,8 +26,13 @@ class RoverState :
 
     ## you do this.
     def __eq__(self, other):
-       pass
-
+       if self.loc == other.loc :
+           if self.sample_extracted == other.sample_extracted :
+               if self.holding_sample == other.holding_sample :
+                   if self.charged == other.charged :
+                       if self.prev == other.prev :
+                           return True
+       return False
 
     def __repr__(self):
         return (f"Location: {self.loc}\n" +
@@ -99,8 +104,21 @@ def battery_goal(state) :
     return state.loc == "battery"
 ## add your goals here.
 
-def mission_complete(state) :
+def charged_goal(state) :
+    return state.charged
+
+def sample_goal(state) :
+    if state.sample_extracted and (not state.holding_sample) :
+        return True
+    return False
+
+def goal(state) :
     pass
+
+def mission_complete(state) :
+    if battery_goal(state) and charged_goal(state) and sample_goal(state) :
+        return True
+    return False
 
 
 if __name__=="__main__" :
