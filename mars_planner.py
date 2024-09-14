@@ -26,6 +26,9 @@ class RoverState :
 
     ## you do this.
     def __eq__(self, other):
+       # print("other.loc: " + other.loc)
+       if other is None :
+           return False
        if self.loc == other.loc :
            if self.sample_extracted == other.sample_extracted :
                if self.holding_sample == other.holding_sample :
