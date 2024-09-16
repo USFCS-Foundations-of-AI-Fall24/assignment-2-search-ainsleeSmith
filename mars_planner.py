@@ -118,9 +118,11 @@ def charge(state) :
     r2.prev = state
     return r2
 
+# action_list = [charge, drop_sample, pick_up_sample,
+#                move_to_sample, move_to_battery, move_to_station]
 
 action_list = [charge, drop_sample, pick_up_sample,
-               move_to_sample, move_to_battery, move_to_station]
+               move_to_sample, move_to_battery, move_to_station, pick_up_tool, drop_tool, use_tool]
 
 def battery_goal(state) :
     return state.loc == "battery"

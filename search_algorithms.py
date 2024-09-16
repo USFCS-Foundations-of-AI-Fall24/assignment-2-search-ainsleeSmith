@@ -18,21 +18,24 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
         if goal_test(next_state[0]):
             print("Goal found")
             print(next_state)
-            print("States count: " + str(state_count))
+            # print("States count: " + str(state_count))
             ptr = next_state[0]
             while ptr is not None :
                 ptr = ptr.prev
                 print(ptr)
+            print("state count: " + str(state_count))
             return next_state
         else :
             successors = next_state[0].successors(action_list)
             state_count = state_count + len(successors)  ## I added
+            # print("state count: " + str(state_count))
             if use_closed_list :
                 successors = [item for item in successors
                                     if item[0] not in closed_list]
                 for s in successors :
                     closed_list[s[0]] = True
             search_queue.extend(successors)
+    print("state count: " + str(state_count))
 
 ### Note the similarity to BFS - the only difference is the search queue
 
@@ -60,6 +63,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
                 ptr = ptr.prev
                 # print("PTR: ")
                 print(ptr)
+            print("state count: " + str(state_count))
             return next_state
         else :
             # see how may states in successors list?
@@ -71,6 +75,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
                 for s in successors :
                     closed_list[s[0]] = True
             search_queue.extend(successors)
+    print("state count: " + str(state_count))
 
 ## add iterative deepening search here
 
