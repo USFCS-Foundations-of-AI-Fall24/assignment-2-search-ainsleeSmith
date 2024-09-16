@@ -27,15 +27,14 @@ class RoverState :
     ## you do this.
     def __eq__(self, other):
        # print("other.loc: " + other.loc)
-       if other is None :
-           return False
-       if self.loc == other.loc :
-           if self.sample_extracted == other.sample_extracted :
-               if self.holding_sample == other.holding_sample :
-                   if self.charged == other.charged :
-                       if self.prev == other.prev :
-                           return True
-       return False
+       # if other is None :
+       #     return False
+        if (self.loc == other.loc
+                and self.sample_extracted == other.sample_extracted
+                and self.holding_sample == other.holding_sample
+                and self.charged == other.charged):
+            return True
+        return False
 
     def __repr__(self):
         return (f"Location: {self.loc}\n" +
