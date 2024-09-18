@@ -86,11 +86,11 @@ def h1(state) :
 def sld(state) :
     # sqt(a^2 + b2)
     # print("location: " + state.location)
-    print("location: " + state.location)
-    info = state.location.split(',')
-    x = info[0]
-    y = info[1]
-    math.sqrt(((x - 1)**2) + ((y - 1)**2))
+    # print("location: " + state.location)
+    # info = state.location.split(',')
+    x = state.g
+    y = state.h
+    return math.sqrt(((x - 1)**2) + ((y - 1)**2))
 
 ## you implement this. Open the file filename, read in each line,
 ## construct a Graph object and assign it to self.mars_graph().
