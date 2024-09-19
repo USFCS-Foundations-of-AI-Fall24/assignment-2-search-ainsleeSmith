@@ -56,13 +56,13 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
             # print("States count: " + str(state_count))
             ptr = next_state
             while ptr is not None :
-                ptr = ptr.prev_state
+                ptr = ptr[1].prev_state
                 # print(ptr)
             # print("state count: " + str(state_count))
             return next_state
         else :
             print("this is not the goal")
-            edges = next_state[1].mars_graph.get_edges(next_state.location)
+            edges = next_state[1].mars_graph.get_edges(next_state[1].location)
             # print("edges: " + str(edges))
             successors = []
             for e in edges:
@@ -74,8 +74,8 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                 for s in successors:
                     closed_list[s] = True # add new location to closed list
                     new = map_state(location=s)
-                    new.mars_graph = next_state.mars_graph
-                    new.g = next_state.g + 1 # since no weight provided for marsmap, assuming 1
+                    new.mars_graph = next_state[1].mars_graph
+                    new.g = next_state[1].g + 1 # since no weight provided for marsmap, assuming 1
                     # print("location: ")
                     # print(s)
                     new.h = heuristic_fn(new)
