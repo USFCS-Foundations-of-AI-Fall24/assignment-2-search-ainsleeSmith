@@ -39,7 +39,7 @@ class map_state() :
 def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
     search_queue = PriorityQueue()
     closed_list = {}
-    search_queue.put(start_state)
+    search_queue.put((start_state.f, start_state))
     ## you do the rest.
     if use_closed_list :
         closed_list[start_state.location] = True
@@ -47,8 +47,8 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
         print ("it not empty")
         ## this is a (state, "action") tuple
         next_state = search_queue.get()
-        print("searching location : ")
-        print(next_state.location)
+        # print("searching location : ")
+        # print(next_state.location)
         # state_count = state_count + 1 ## I added this
         if goal_test(next_state):
             print("Goal found")
@@ -62,14 +62,11 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
             return next_state
         else :
             print("this is not the goal")
-            edges = next_state.mars_graph.get_edges(next_state.location)
-            print("edges: " + str(edges))
+            edges = next_state[1].mars_graph.get_edges(next_state.location)
+            # print("edges: " + str(edges))
             successors = []
             for e in edges:
                 e = str(e)
-                # print('e: ')
-                # print(e)
-                # print('e split: ')
                 l = e.split(' ')
                 successors.append(l[1])
             if use_closed_list : # going to keep track of visited locations in closed_list
@@ -79,21 +76,11 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                     new = map_state(location=s)
                     new.mars_graph = next_state.mars_graph
                     new.g = next_state.g + 1 # since no weight provided for marsmap, assuming 1
-                    print("location: ")
-                    print(s)
+                    # print("location: ")
+                    # print(s)
                     new.h = heuristic_fn(new)
                     new.f = new.g + new.h
-                    search_queue.put(new)
-
-            # successors = next_state[0].successors(next_state.)
-            # state_count = state_count + len(successors)  ## I added
-            # print("state count: " + str(state_count))
-            # if use_closed_list :
-            #     successors = [item for item in successors
-            #                         if item[0] not in closed_list]
-            #     for s in successors :
-            #         closed_list[s[0]] = True
-            # search_queue.extend(successors)
+                    search_queue.put((new.f,new))
 
 ## default heuristic - we can use this to implement uniform cost search
 def h1(state) :
@@ -117,8 +104,6 @@ def read_mars_graph(filename):
         lines = [line for line in f.readlines()]
         for line in lines :
             info = line.split(' ')
-            print("info: ")
-            print(info)
             g.add_node(info[0].strip(':'))
             first = True
             for i in info :
@@ -128,12 +113,10 @@ def read_mars_graph(filename):
                     if not g.has_node(i.strip('\n')) :
                         g.add_node(i.strip('\n'))
                     g.add_edge(Edge(info[0].strip(':'), i.strip('\n')))
-                    # print("edge: ")
-                    # print(g.get_edges(info[0].strip(':')))
         return g
 
 def goal_complete(state) :
-    if state.location == '1,1' :
+    if str(state[1].location) == '1,1' :
         return True
     return False
 
