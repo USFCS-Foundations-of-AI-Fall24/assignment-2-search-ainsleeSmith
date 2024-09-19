@@ -42,4 +42,7 @@ class Graph :
         if src in self.g:
             return self.g[src]
 
-
+    def has_node(self, src):
+        if self.g.__contains__(src) :
+            return True
+        return False
