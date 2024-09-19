@@ -17,6 +17,13 @@ from copy import deepcopy
 from search_algorithms import breadth_first_search
 
 class RoverState :
+    # def __init__(self, loc="station", sample_extracted=False, holding_sample=False, charged=False):
+    #     self.loc = loc
+    #     self.sample_extracted=sample_extracted
+    #     self.holding_sample = holding_sample
+    #     self.charged=charged
+    #     self.prev = None
+
     def __init__(self, loc="station", sample_extracted=False, holding_sample=False, charged=False, holding_tool=False):
         self.loc = loc
         self.sample_extracted=sample_extracted
@@ -26,6 +33,17 @@ class RoverState :
         self.holding_tool = holding_tool
 
     ## you do this.
+    # def __eq__(self, other):
+    #    # print("other.loc: " + other.loc)
+    #    # if other is None :
+    #    #     return False
+    #     if (self.loc == other.loc
+    #             and self.sample_extracted == other.sample_extracted
+    #             and self.holding_sample == other.holding_sample
+    #             and self.charged == other.charged):
+    #         return True
+    #     return False
+
     def __eq__(self, other):
        # print("other.loc: " + other.loc)
        # if other is None :
@@ -33,7 +51,8 @@ class RoverState :
         if (self.loc == other.loc
                 and self.sample_extracted == other.sample_extracted
                 and self.holding_sample == other.holding_sample
-                and self.charged == other.charged):
+                and self.charged == other.charged
+                and self.holding_tool == other.holding_tool):
             return True
         return False
 
@@ -64,6 +83,7 @@ def move_to_sample(state) :
     r2.loc = "sample"
     r2.prev=state
     return r2
+
 def move_to_station(state) :
     r2 = deepcopy(state)
     r2.loc = "station"
@@ -153,11 +173,11 @@ def charge_loc_goal(state) :
 
 if __name__=="__main__" :
     s = RoverState()
-    result = breadth_first_search(s, action_list, mission_complete)
-    # moveToSample = breadth_first_search(s, action_list, sample_loc_goal)
-    # removeSample = breadth_first_search(moveToSample, action_list, sample_goal)
-    # returnToCharger = breadth_first_search(moveToSample, action_list, charge_loc_goal)
-    print(result)
+    # result = breadth_first_search(s, action_list, mission_complete)
+    moveToSample = breadth_first_search(s, action_list, sample_loc_goal)
+    removeSample = breadth_first_search(moveToSample, action_list, sample_goal)
+    returnToCharger = breadth_first_search(moveToSample, action_list, charge_loc_goal)
+    # print(result)
 
 
 

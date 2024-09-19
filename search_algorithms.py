@@ -28,7 +28,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
         else :
             successors = next_state[0].successors(action_list)
             state_count = state_count + len(successors)  ## I added
-            print("len of sucessors: " + str(len(successors)))
+            # print("len of sucessors: " + str(len(successors)))
             # print("state count: " + str(state_count))
             if use_closed_list :
                 successors = [item for item in successors
@@ -36,7 +36,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
                 for s in successors :
                     closed_list[s[0]] = True
             search_queue.extend(successors)
-    print("state count: " + str(state_count))
+    # print("state count: " + str(state_count))
 
 ### Note the similarity to BFS - the only difference is the search queue
 
@@ -65,10 +65,11 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
                 # print("PTR: ")
                 print(ptr)
             # state_count = len(closed_list)
-            print("state count: " + str(state_count))
+            # print("state count: " + str(state_count))
             return next_state
         else :
             # see how may states in successors list?
+            # check limit here?
             successors = next_state[0].successors(action_list)
             state_count = state_count + len(successors)  ## I added
             if use_closed_list :
@@ -78,7 +79,49 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
                     # state_count = state_count + 1
                     closed_list[s[0]] = True
             search_queue.extend(successors)
-    print("state count: " + str(state_count))
+    # print("state count: " + str(state_count))
 
+## use the limit parameter to implement depth-limited search
+def depth_limited_search(startState, action_list, goal_test, limit, use_closed_list=True) :
+    print("in dfs")
+    search_queue = deque()
+    closed_list = {}
+    state_count = 0 ## I added
+    limit_count = 0
 
+    search_queue.append((startState,""))
+    if use_closed_list :
+        closed_list[startState] = True
+    # while len(search_queue) > 0 :
+    while len(search_queue) > 0:
+        ## this is a (state, "action") tuple
+        next_state = search_queue.pop()
+
+        if goal_test(next_state[0]):
+            print("Goal found")
+            print(next_state)
+            print("States count: " + str(state_count))
+            ptr = next_state[0]
+            while ptr is not None :
+                ptr = ptr.prev
+                # print("PTR: ")
+                print(ptr)
+            # state_count = len(closed_list)
+            # print("state count: " + str(state_count))
+            return next_state
+        else :
+            # see how may states in successors list?
+            # check limit here?
+            if not limit_count == limit :
+                limit_count = limit_count + 1
+                successors = next_state[0].successors(action_list)
+                state_count = state_count + len(successors)  ## I added
+                if use_closed_list :
+                    successors = [item for item in successors
+                                        if item[0] not in closed_list]
+                    for s in successors :
+                        # state_count = state_count + 1
+                        closed_list[s[0]] = True
+                search_queue.extend(successors)
+    # print("state count: " + str(state_count))
 

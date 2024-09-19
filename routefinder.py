@@ -41,6 +41,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
     closed_list = {}
     search_queue.put((start_state.f, start_state))
     ## you do the rest.
+    state_count = 0
     if use_closed_list :
         closed_list[start_state.location] = True
     while not search_queue.empty() :
@@ -49,6 +50,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
         # state_count = state_count + 1 ## I added this
         if goal_test(next_state):
             print("Goal found")
+            print("Count: " + str(state_count))
             ptr = next_state
             while ptr is not None :
                 ptr = ptr[1].prev_state
@@ -62,6 +64,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                 successors.append(l[1])
             if use_closed_list : # going to keep track of visited locations in closed_list
                 successors = [item for item in successors if item not in closed_list]
+                state_count = state_count + len(successors)
                 for s in successors:
                     closed_list[s] = True # add new location to closed list
                     new = map_state(location=s)
@@ -111,6 +114,7 @@ def goal_complete(state) :
 
 if __name__=="__main__" :
     s1 = map_state(location='8,8', g=0)
-    s1.h = sld(s1)
-    result = a_star(s1, sld, goal_complete)
+    # s1.h = sld(s1)
+    s1.h = h1(s1)
+    result = a_star(s1, h1, goal_complete)
     print(result)
