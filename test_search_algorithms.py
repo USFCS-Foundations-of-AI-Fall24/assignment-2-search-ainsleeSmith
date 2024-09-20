@@ -43,15 +43,15 @@ class Test(TestCase):
         def g(s):
             return s.loc == "battery"
         s = RoverState()
-        result = depth_limited_search(s, action_list, g, 10)
+        result = depth_limited_search(s, action_list, g, 5)
         print(result)
         def g2(s):
             return s.loc == "sample" and s.sample_extracted == True
         s2 = RoverState()
-        result = depth_limited_search(s2, action_list, g2, 10)
+        result = depth_limited_search(s2, action_list, g2, 5)
         print(result)
         def g3(s) :
             return s.charged == True and s.sample_extracted == True
         s3 = RoverState()
-        result = depth_limited_search(s3, action_list, g3, 10)
+        result = depth_limited_search(s3, action_list, g3, 5)
         print(result)
