@@ -167,16 +167,27 @@ def sample_loc_goal(state) :
     return False
 
 def charge_loc_goal(state) :
-    if state.loc == "charger" :
+    if state.loc == "battery" :
+        return True
+    return False
+
+def remove_sample_goal(state) :
+    if state.sample_extracted and state.holding_sample :
         return True
     return False
 
 if __name__=="__main__" :
     s = RoverState()
     # result = breadth_first_search(s, action_list, mission_complete)
+    print("move to sample:")
     moveToSample = breadth_first_search(s, action_list, sample_loc_goal)
-    removeSample = breadth_first_search(moveToSample, action_list, sample_goal)
-    returnToCharger = breadth_first_search(moveToSample, action_list, charge_loc_goal)
+    print(moveToSample)
+    print("remove sample: ")
+    removeSample = breadth_first_search(moveToSample[0], action_list, remove_sample_goal)
+    print(removeSample)
+    print("return to charger: ")
+    returnToCharger = breadth_first_search(removeSample[0], action_list, charge_loc_goal)
+    print(returnToCharger)
     # print(result)
 
 

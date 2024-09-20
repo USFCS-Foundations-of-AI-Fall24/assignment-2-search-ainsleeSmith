@@ -22,7 +22,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
             ptr = next_state[0]
             while ptr is not None :
                 ptr = ptr.prev
-                print(ptr)
+                # print(ptr)
             print("state count: " + str(state_count))
             return next_state
         else :
@@ -63,7 +63,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             while ptr is not None :
                 ptr = ptr.prev
                 # print("PTR: ")
-                print(ptr)
+                # print(ptr)
             # state_count = len(closed_list)
             # print("state count: " + str(state_count))
             return next_state
@@ -83,7 +83,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
 
 ## use the limit parameter to implement depth-limited search
 def depth_limited_search(startState, action_list, goal_test, limit, use_closed_list=True) :
-    print("in dfs")
+    print("in dls")
     search_queue = deque()
     closed_list = {}
     state_count = 0 ## I added
@@ -105,7 +105,7 @@ def depth_limited_search(startState, action_list, goal_test, limit, use_closed_l
             while ptr is not None :
                 ptr = ptr.prev
                 # print("PTR: ")
-                print(ptr)
+                # print(ptr)
             # state_count = len(closed_list)
             # print("state count: " + str(state_count))
             return next_state
