@@ -47,7 +47,6 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
     while not search_queue.empty() :
         ## this is a (state, "action") tuple
         next_state = search_queue.get()
-        # state_count = state_count + 1 ## I added this
         if goal_test(next_state):
             print("Goal found")
             print("Count: " + str(state_count))
@@ -64,7 +63,6 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                 successors.append(l[1])
             if use_closed_list : # going to keep track of visited locations in closed_list
                 successors = [item for item in successors if item not in closed_list]
-                # state_count = state_count + len(successors)
                 for s in successors:
                     closed_list[s] = True # add new location to closed list
                     new = map_state(location=s)
@@ -81,9 +79,6 @@ def h1(state) :
 
 ## you do this - return the straight-line distance between the state and (1,1)
 def sld(state) :
-    # sqt(a^2 + b2)
-    # print("location: " + state.location)
-    # print("location: " + state.location)
     info = state.location.split(',')
     x = int(info[0])
     y = int(info[1])

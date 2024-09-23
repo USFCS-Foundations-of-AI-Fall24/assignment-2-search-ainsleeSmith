@@ -32,7 +32,7 @@ class RoverState :
         self.prev = None
         self.holding_tool = holding_tool
 
-    ## you do this.
+    # # you do this.
     # def __eq__(self, other):
     #    # print("other.loc: " + other.loc)
     #    # if other is None :
@@ -157,7 +157,7 @@ def sample_goal(state) :
     return False
 
 def mission_complete(state) :
-    if battery_goal(state) and charged_goal(state) and sample_goal(state) :
+    if battery_goal(state) and charged_goal(state) and sample_goal(state):
         return True
     return False
 
