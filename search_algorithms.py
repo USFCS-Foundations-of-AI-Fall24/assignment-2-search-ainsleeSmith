@@ -30,7 +30,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
                     closed_list[s[0]] = True
             state_count = state_count + len(successors)  ## I added
             search_queue.extend(successors)
-    print("States count: " + str(state_count))
+    # print("States count: " + str(state_count))
 
 ### Note the similarity to BFS - the only difference is the search queue
 
@@ -68,7 +68,7 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
                     closed_list[s[0]] = True
             state_count = state_count + len(successors)  ## I added
             search_queue.extend(successors)
-    print("States count: " + str(state_count))
+    # print("States count: " + str(state_count))
 
 ## use the limit parameter to implement depth-limited search
 def depth_limited_search(startState, action_list, goal_test, limit, use_closed_list=True) :
