@@ -27,7 +27,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
             return next_state
         else :
             successors = next_state[0].successors(action_list)
-            state_count = state_count + len(successors)  ## I added
+            # state_count = state_count + len(successors)  ## I added
             # print("len of sucessors: " + str(len(successors)))
             # print("state count: " + str(state_count))
             if use_closed_list :
@@ -35,6 +35,7 @@ def breadth_first_search(startState, action_list, goal_test, use_closed_list=Tru
                                     if item[0] not in closed_list]
                 for s in successors :
                     closed_list[s[0]] = True
+            state_count = state_count + len(successors)  ## I added
             search_queue.extend(successors)
     # print("state count: " + str(state_count))
 
@@ -71,13 +72,14 @@ def depth_first_search(startState, action_list, goal_test, use_closed_list=True,
             # see how may states in successors list?
             # check limit here?
             successors = next_state[0].successors(action_list)
-            state_count = state_count + len(successors)  ## I added
+            # state_count = state_count + len(successors)  ## I added
             if use_closed_list :
                 successors = [item for item in successors
                                     if item[0] not in closed_list]
                 for s in successors :
                     # state_count = state_count + 1
                     closed_list[s[0]] = True
+            state_count = state_count + len(successors)  ## I added
             search_queue.extend(successors)
     # print("state count: " + str(state_count))
 
@@ -115,13 +117,14 @@ def depth_limited_search(startState, action_list, goal_test, limit, use_closed_l
             if not limit_count == limit :
                 limit_count = limit_count + 1
                 successors = next_state[0].successors(action_list)
-                state_count = state_count + len(successors)  ## I added
+                # state_count = state_count + len(successors)  ## I added
                 if use_closed_list :
                     successors = [item for item in successors
                                         if item[0] not in closed_list]
                     for s in successors :
                         # state_count = state_count + 1
                         closed_list[s[0]] = True
+                state_count = state_count + len(successors)  ## I added
                 search_queue.extend(successors)
     # print("state count: " + str(state_count))
 

@@ -37,7 +37,7 @@ class Test(TestCase):
     def test_a_star(self):
         s = map_state(location='8,8', g=0)
         s.h = sld(s)
-        result = a_star(s, h1, goal_complete)
+        result = a_star(s, sld, goal_complete)
         print(result)
 
     def test_ucs(self):

@@ -64,7 +64,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                 successors.append(l[1])
             if use_closed_list : # going to keep track of visited locations in closed_list
                 successors = [item for item in successors if item not in closed_list]
-                state_count = state_count + len(successors)
+                # state_count = state_count + len(successors)
                 for s in successors:
                     closed_list[s] = True # add new location to closed list
                     new = map_state(location=s)
@@ -72,6 +72,7 @@ def a_star(start_state, heuristic_fn, goal_test, use_closed_list=True) :
                     new.g = next_state[1].g + 1 # since no weight provided for marsmap, assuming 1
                     new.h = heuristic_fn(new)
                     new.f = new.g + new.h
+                    state_count = state_count + 1
                     search_queue.put((new.f,new))
 
 ## default heuristic - we can use this to implement uniform cost search
@@ -114,7 +115,7 @@ def goal_complete(state) :
 
 if __name__=="__main__" :
     s1 = map_state(location='8,8', g=0)
-    # s1.h = sld(s1)
-    s1.h = h1(s1)
+    s1.h = sld(s1)
+    # s1.h = h1(s1)
     result = a_star(s1, h1, goal_complete)
     print(result)
